@@ -108,6 +108,13 @@ try {
 
 async function greet(appno) {
 
+
+document.getElementById("submitDownload").value= "Loading...";
+document.getElementById("submitDownload").disabled = true; //OR
+document.getElementById("submitDownload").readOnly= true;
+
+
+
 const url = "https://bor.up.nic.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx";
 
 // Headers mapped from your raw request
@@ -214,7 +221,7 @@ try {
 <form action="javascript:void(0);" align=center>
   <label for="appno">प्रार्थना पत्र कमांक</label><br/><br/>
   <input type="text" id="appno" name="appno" value=""><br/><br/>
-  <input type="submit" value="Download" onclick="greet(document.getElementById('appno').value)">
+  <input type="submit" id="submitDownload" value="Download" onclick="greet(document.getElementById('appno').value)">
 </form>
 
 </body>
