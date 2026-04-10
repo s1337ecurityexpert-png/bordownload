@@ -142,9 +142,7 @@ try {
   let end = (responseData.search("</table") - start + 8);
   console.log(start, end);
   
-  //downloadCSVFromTableString(responseData, appno+".csv");
-  
-  data = 
+  downloadCSVFromTableString(responseData, appno+".csv");
   
 } catch (error) {
   console.error("Request failed:", error);
