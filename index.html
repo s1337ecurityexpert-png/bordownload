@@ -77,7 +77,31 @@ function downloadCSVFromTableString(htmlString, filename = 'table_data.csv') {
 }
 
 
+async function getimgsrcdata(appno, docid)
+{
 
+try {
+  const response = await fetch("https://bor.up.nic.in/krishakaccidentscheme/user/View_Documnet.aspx?new_autonogenno=" + appno + "&doc_type=" + docid, {
+  method: "GET",
+  mode: "no-cors",
+  headers: {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
+    "Priority": "u=0, i"
+  }});
+
+  responseData = await response.text();
+  let start = responseData.search("<img id=\"Image1");
+  let end = (responseData.search("<iframe id"));
+  
+  return responseData.substr(start,end - start);
+  
+} catch (error) {
+  console.error("Request failed:", error);
+}
+
+
+}
 
 
 
@@ -138,11 +162,41 @@ try {
   }});
 
   responseData = await response.text();
-  let start = responseData.search("<table");
-  let end = (responseData.search("</table") - start + 8);
-  console.log(start, end);
+  //let start = responseData.search("<table");
+  //let end = (responseData.search("</table") - start + 8);
+  //console.log(start, end);
   
-  downloadCSVFromTableString(responseData, appno+".csv");
+  // downloadCSVFromTableString(responseData, appno+".csv");
+  
+  responseData = responseData.replaceAll("<script src=\"", "<script src=\"https://bor.up.nic.in/krishakaccidentscheme/user/");
+  responseData = responseData.replaceAll("href=\"", "href=\"https://bor.up.nic.in/krishakaccidentscheme/user/");
+  responseData = responseData.replaceAll("../img/tick.png", "https://bor.up.nic.in/krishakaccidentscheme/img/tick.png")
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=1')>", await getimgsrcdata(appno, "1"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=2')>", await getimgsrcdata(appno, "2"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=3')>", await getimgsrcdata(appno, "3"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=4')>", await getimgsrcdata(appno, "4"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=5')>", await getimgsrcdata(appno, "5"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=6')>", await getimgsrcdata(appno, "6"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=7')>", await getimgsrcdata(appno, "7"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=8')>", await getimgsrcdata(appno, "8"));
+  
+  responseData = responseData.replace("<a href=javascript:openCenteredWindow('View_Documnet.aspx?new_autonogenno="+appno+"&doc_type=9')>", await getimgsrcdata(appno, "9"));
+  
+  
+  let start = responseData.search("<center>")
+  let end = (responseData.search("</center>") - start + 10);
+  responseData = responseData.replace(responseData.substr(start,end), " ");
+  
+  document.open();
+  document.write(responseData);
+  document.close();
   
 } catch (error) {
   console.error("Request failed:", error);
