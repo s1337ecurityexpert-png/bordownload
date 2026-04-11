@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 class CustomHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/html')
+        self.send_header('Content-type', 'text/html; charset=utf-8-sig')
         self.end_headers()
 
         parsed_path = urlparse(self.path)
