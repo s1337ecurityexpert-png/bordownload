@@ -1,7 +1,7 @@
 import os
 import json
 from http.server import SimpleHTTPRequestHandler, HTTPServer
-from urllib.parse import urlparse
+#from urllib.parse import urlparse
 
 class CustomHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -10,7 +10,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
         parsed_path = urlparse(self.path)
-        params = parse_qs(parsed_path.query)
+        #params = parse_qs(parsed_path.query)
 
         html_content = "Hello World!"
         self.wfile.write(html_content)
