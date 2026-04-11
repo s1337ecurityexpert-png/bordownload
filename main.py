@@ -6,17 +6,14 @@ from urllib.parse import urlparse
 class CustomHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'application/html')
         self.end_headers()
 
         parsed_path = urlparse(self.path)
         params = parse_qs(parsed_path.query)
 
-        
-        data = {
-            "message": params
-        }
-        self.wfile.write(json.dumps(data).encode('utf-8'))
+        html_content = "Hello World!"
+        self.wfile.write(html_content)
 
 
 if __name__ == "__main__":
