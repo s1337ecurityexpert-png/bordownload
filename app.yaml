@@ -3,4 +3,4 @@ kind: wasmer.io/App.v0
 name: wasmer-python-http-server-worker
 package: wasmer/python-http-server
 cli_args:
-  - /src/main.py
+  - src/main.py
