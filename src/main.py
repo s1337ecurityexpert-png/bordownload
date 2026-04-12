@@ -7,31 +7,42 @@ import json
 from bs4 import BeautifulSoup
 
 
+from bs4 import BeautifulSoup
+
 def get_all(html_content):
     # Parse the HTML
-    
     soup = BeautifulSoup(html_content, 'html.parser')
     
     # METHOD 1: Fulfilling the exact request (finding all specified tags)
-    # Note: This will result in duplicates because spans are inside tds, which are inside trs.
-    
     target_tags = ['span', 'tr', 'th', 'td']
     all_elements = soup.find_all(target_tags)
 
     literal_request_list = []
     for tag in all_elements:
-        # get_text(strip=True) extracts text while removing empty spaces/newlines
-        text = tag.get_text(separator=" ", strip=True)
-        if text: # Only add if it's not empty
-            literal_request_list.append(text)
+        # Check if this specific tag contains an image
+        img_tag = tag.find('img')
+        
+        # If an image exists, grab its src
+        if img_tag and img_tag.has_attr('src'):
+            literal_request_list.append(img_tag['src'])
+        else:
+            # get_text(strip=True) extracts text while removing empty spaces/newlines
+            text = tag.get_text(separator=" ", strip=True)
+            if text: # Only add if it's not empty
+                literal_request_list.append(text)
     
-    # METHOD 2: The cleaner way (Getting text blocks without massive nesting duplication)
-    # This uses the stripped_strings generator to just get the raw text nodes from the table
-    lstidx = [10, 14, 19, 23, 28, 32, 37, 42, 46, 49, 50, 52, 53]
+    # METHOD 2: Getting text blocks without massive nesting duplication
+    lstidx = [8, 11, 15, 20, 24, 29, 33, 38, 43, 47, 48, 50, 51, 52, 53, 54]
     data = ""
 
-    for i in lstidx:
-        data += literal_request_list[i]+"|"
+    # Using a try-except block here is highly recommended. 
+    # Because you are using strict hardcoded indices (lstidx), if the HTML 
+    # structure changes even slightly, it will throw an IndexError and crash.
+    try:
+        for i in lstidx:
+            data += literal_request_list[i] + "|"
+    except IndexError:
+        return data + "| Error: HTML structure changed, index out of range."
 
     return data
 
@@ -78,6 +89,27 @@ def getawedak(html_content):
 
 
 
+
+def getdoc(appid, docid):
+    headers = {
+        "Host": "bor.up.nic.in",
+        "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
+        "Priority": "u=0, i"
+    }
+    response = requests.get("https://bor.up.nic.in/krishakaccidentscheme/user/View_Documnet.aspx?new_autonogenno= "+ appid +"&doc_type=" + docid , headers=headers, verify=False)
+    
+    # 1. Parse the HTML
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # 2. Find the specific image tag by its ID
+    img_tag = soup.find('img', id='Image1')
+    
+    # 3. Extract the 'src' attribute safely
+    retdata = img_tag['src']
+    if retdata == "" or retdata == "data:image/jpg;base64,":
+        return "No Image"
+    else:
+        return retdata
 
 
 
@@ -140,8 +172,19 @@ def getawedan(appid):
 
     html_content = (response.text)[start:start2] + (response.text)[end2:end]
     respdata = get_all(html_content)
+    
+    respdata += getdoc(appid, "1") + "|"
+    respdata += getdoc(appid, "2") + "|"
+    respdata += getdoc(appid, "3") + "|"
+    respdata += getdoc(appid, "4") + "|"
+    respdata += getdoc(appid, "5") + "|"
+    respdata += getdoc(appid, "6") + "|"
+    respdata += getdoc(appid, "7") + "|"
+    respdata += getdoc(appid, "8") + "| |"
+    
     html_content = (response.text)[start2:((response.text)[:end]).index("</table")+8]
     respdata += getawedak(html_content)
+    
     return respdata
 
 
