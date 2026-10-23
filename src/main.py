@@ -96,7 +96,7 @@ def getdoc(appid, docid):
         "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
         "Priority": "u=0, i"
     }
-    response = requests.get("https://bor.up.gov.in/krishakaccidentscheme/user/View_Documnet.aspx?new_autonogenno= "+ appid +"&doc_type=" + docid , headers=headers, verify=False)
+    response = requests.get("https://bor.up.gov.in/KAS/user/View_Documnet.aspx?new_autonogenno= "+ appid +"&doc_type=" + docid , headers=headers, verify=False)
     
     # 1. Parse the HTML
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -193,7 +193,7 @@ def getawedakwophoto(html_content):
 
 def getawedanwophoto(appid):
 
-    url = "https://bor.up.gov.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
+    url = "https://bor.up.gov.in/KAS/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
     
     headers = {
         "Host": "bor.up.gov.in",
@@ -231,7 +231,7 @@ def getawedanwophoto(appid):
         x = response.headers.get('Location').find("&rc_no=")
         base64appid = response.headers.get('Location')[x+7:]
         # The full URL including the query parameters from the GET line
-    url = "https://bor.up.gov.in/krishakaccidentscheme/user/Print_Awedan.aspx?UID=" + base64appid
+    url = "https://bor.up.gov.in/KAS/user/Print_Awedan.aspx?UID=" + base64appid
     
     # Dictionary containing all the request headers
     headers = {
@@ -263,7 +263,7 @@ def getawedanwophoto(appid):
 
 def getawedan(appid):
 
-    url = "https://bor.up.gov.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
+    url = "https://bor.up.gov.in/KAS/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
     
     headers = {
         "Host": "bor.up.gov.in",
@@ -301,7 +301,7 @@ def getawedan(appid):
         x = response.headers.get('Location').find("&rc_no=")
         base64appid = response.headers.get('Location')[x+7:]
         # The full URL including the query parameters from the GET line
-    url = "https://bor.up.gov.in/krishakaccidentscheme/user/Print_Awedan.aspx?UID=" + base64appid
+    url = "https://bor.up.gov.in/KAS/user/Print_Awedan.aspx?UID=" + base64appid
     
     # Dictionary containing all the request headers
     headers = {
