@@ -92,11 +92,11 @@ def getawedak(html_content):
 
 def getdoc(appid, docid):
     headers = {
-        "Host": "bor.up.nic.in",
+        "Host": "bor.up.gov.in",
         "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
         "Priority": "u=0, i"
     }
-    response = requests.get("https://bor.up.nic.in/krishakaccidentscheme/user/View_Documnet.aspx?new_autonogenno= "+ appid +"&doc_type=" + docid , headers=headers, verify=False)
+    response = requests.get("https://bor.up.gov.in/krishakaccidentscheme/user/View_Documnet.aspx?new_autonogenno= "+ appid +"&doc_type=" + docid , headers=headers, verify=False)
     
     # 1. Parse the HTML
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -193,16 +193,16 @@ def getawedakwophoto(html_content):
 
 def getawedanwophoto(appid):
 
-    url = "https://bor.up.nic.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
+    url = "https://bor.up.gov.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
     
     headers = {
-        "Host": "bor.up.nic.in",
+        "Host": "bor.up.gov.in",
         "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
         "Cache-Control": "max-age=0",
         "Sec-Ch-Ua": '"Chromium";v="146", "Not-A.Brand";v="24", "Google Chrome";v="146"',
         "Sec-Ch-Ua-Mobile": "?0",
         "Sec-Ch-Ua-Platform": '"Windows"',
-        "Origin": "https://bor.up.nic.in",
+        "Origin": "https://bor.up.gov.in",
         "Content-Type": "application/x-www-form-urlencoded",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
@@ -211,7 +211,7 @@ def getawedanwophoto(appid):
         "Sec-Fetch-Mode": "navigate",
         "Sec-Fetch-User": "?1",
         "Sec-Fetch-Dest": "document",
-        "Referer": "https://bor.up.nic.in/",
+        "Referer": "https://bor.up.gov.in/",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
         "Priority": "u=0, i",
@@ -231,11 +231,11 @@ def getawedanwophoto(appid):
         x = response.headers.get('Location').find("&rc_no=")
         base64appid = response.headers.get('Location')[x+7:]
         # The full URL including the query parameters from the GET line
-    url = "https://bor.up.nic.in/krishakaccidentscheme/user/Print_Awedan.aspx?UID=" + base64appid
+    url = "https://bor.up.gov.in/krishakaccidentscheme/user/Print_Awedan.aspx?UID=" + base64appid
     
     # Dictionary containing all the request headers
     headers = {
-        "Host": "bor.up.nic.in",
+        "Host": "bor.up.gov.in",
         "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
         "Priority": "u=0, i"
     }
@@ -263,16 +263,16 @@ def getawedanwophoto(appid):
 
 def getawedan(appid):
 
-    url = "https://bor.up.nic.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
+    url = "https://bor.up.gov.in/krishakaccidentscheme/Cm_Dashboard/Cm_Dashboard_mandal.aspx"
     
     headers = {
-        "Host": "bor.up.nic.in",
+        "Host": "bor.up.gov.in",
         "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
         "Cache-Control": "max-age=0",
         "Sec-Ch-Ua": '"Chromium";v="146", "Not-A.Brand";v="24", "Google Chrome";v="146"',
         "Sec-Ch-Ua-Mobile": "?0",
         "Sec-Ch-Ua-Platform": '"Windows"',
-        "Origin": "https://bor.up.nic.in",
+        "Origin": "https://bor.up.gov.in",
         "Content-Type": "application/x-www-form-urlencoded",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
@@ -281,7 +281,7 @@ def getawedan(appid):
         "Sec-Fetch-Mode": "navigate",
         "Sec-Fetch-User": "?1",
         "Sec-Fetch-Dest": "document",
-        "Referer": "https://bor.up.nic.in/",
+        "Referer": "https://bor.up.gov.in/",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
         "Priority": "u=0, i",
@@ -301,11 +301,11 @@ def getawedan(appid):
         x = response.headers.get('Location').find("&rc_no=")
         base64appid = response.headers.get('Location')[x+7:]
         # The full URL including the query parameters from the GET line
-    url = "https://bor.up.nic.in/krishakaccidentscheme/user/Print_Awedan.aspx?UID=" + base64appid
+    url = "https://bor.up.gov.in/krishakaccidentscheme/user/Print_Awedan.aspx?UID=" + base64appid
     
     # Dictionary containing all the request headers
     headers = {
-        "Host": "bor.up.nic.in",
+        "Host": "bor.up.gov.in",
         "Cookie": "SameSite=Strict; SameSite=Strict; ASP.NET_SessionId=; SameSite=Strict; UserLanguage=UserLanguage=en-US",
         "Priority": "u=0, i"
     }
