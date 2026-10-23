@@ -15,5 +15,4 @@ module = "wasmer/python:python"
 runner = "wasi"
 
 [command.annotations.wasi]
-main-args = ["-m", "flask", "--app", "/src", "run"]
-env = ["PYTHONEXECUTABLE=/bin/python"]
+main-args = ["src/main.py"]
