@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "wasmer/python-http-server py worker"
 
 [dependencies]
-"wasmer/python" = "^3.13.20"
+"wasmer/python" = "^3.13.16"
 
 [fs]
 "/src" = "./src"
